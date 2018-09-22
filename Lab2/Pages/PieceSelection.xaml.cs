@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Lab2.Pages;
+using Lab2.Classes;
 
 namespace Lab2.Pages
 {
@@ -28,15 +29,51 @@ namespace Lab2.Pages
 
         public void Select(object sender, RoutedEventArgs e)
         {
+            Player player;
+            Player computer;
+            Random random = new Random();
+
+            Board board = new Board
+            {
+                PlayArea = new string[3, 3]
+            };
+
             string value = ((Button)sender).Tag.ToString();
-            if(value == "X")
+
+
+            if(value == "X") //Player is X
             {
-                Console.WriteLine("X");
-            } else
+                player = new Player {
+                    IsHuman = true,
+                    IsX = true
+                };
+                computer = new Player {
+                    IsHuman = false,
+                    IsX = false
+                };
+            } else //Player is O
             {
-                Console.WriteLine("O");
+                player = new Player
+                {
+                    IsHuman = true,
+                    IsX = false
+                };
+                computer = new Player
+                {
+                    IsHuman = false,
+                    IsX = true
+                };
             }
-            GamePage gamePage = new GamePage();
+
+
+            Game game = new Game {
+                Player1 = player,
+                Player2 = computer,
+                GameBoard = board,
+                IsPlayerTurn = random.Next(2) < 2
+            };
+
+            GamePage gamePage = new GamePage(game);
             this.NavigationService.Navigate(gamePage);
         }
     }

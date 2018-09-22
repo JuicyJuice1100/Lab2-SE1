@@ -54,6 +54,8 @@ namespace Lab2
                     {
                         Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(fileName));
                         //TODO: need to pass json data to game object and load to gamePage
+                        GamePage gamePage = new GamePage();
+                        this.NavigationService.Navigate(gamePage);
                     }
                     catch (IOException exception)
                     {
@@ -61,6 +63,7 @@ namespace Lab2
                     }
                 }
             }
+            //TODO: move this to the info board
             Console.WriteLine("Game Loaded");
         }
 

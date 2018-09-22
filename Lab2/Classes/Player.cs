@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2.Classes
 {
-    class Player
+    public class Player
     {
         public bool IsHuman { get; set; }
         public bool IsX { get; set; }

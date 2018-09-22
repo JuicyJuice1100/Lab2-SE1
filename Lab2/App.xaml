@@ -50,6 +50,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="FontSize" Value="50"></Setter>
+            <Setter Property="IsHitTestVisible" Value="False"></Setter>
         </Style>
     </Application.Resources>
 </Application>

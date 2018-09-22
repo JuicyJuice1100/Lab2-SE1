@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Lab2.Classes;
 
 //TODO: Insert Game Logic with on click
 //TODO: Create WinCheck
@@ -26,9 +27,14 @@ namespace Lab2
     /// </summary>
     public partial class GamePage : Page
     {
-        public GamePage()
+        public Game CurrentGame { get; set; }
+
+        public GamePage(Game game)
         {
             InitializeComponent();
+            //TODO: Create new game object and set defaults
+
+            CurrentGame = game;
         }
 
         public void BoardClicked(object sender, RoutedEventArgs e)
@@ -54,16 +60,18 @@ namespace Lab2
                     try
                     {
                         //TODO: change save logic as this points to the page, need to change to point to a game object
-                        string json = JsonConvert.SerializeObject(this);
+                        string json = JsonConvert.SerializeObject(CurrentGame);
                         File.WriteAllText(fileName, json);
+                        InfoBox.Text = "Game Saved";
                     }
                     catch (IOException exception)
                     {
                         Console.WriteLine(exception.Message);
+                        InfoBox.Text = "Unable to Save Game";
                     }
                 }
             }
-            Console.WriteLine("Game Saved");
+            
         }
 
         private void Exit(object sender, RoutedEventArgs e)
