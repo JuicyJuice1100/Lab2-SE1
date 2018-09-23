@@ -9,6 +9,6 @@ namespace Lab2.Classes
     public class Player
     {
         public bool IsHuman { get; set; }
-        public bool IsX { get; set; }
+        public string Piece { get; set; }
     }
 }

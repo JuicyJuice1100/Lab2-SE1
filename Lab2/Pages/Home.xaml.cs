@@ -54,22 +54,39 @@ namespace Lab2
                     {
                         Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(fileName));
                         //TODO: need to pass json data to game object and load to gamePage
-                        GamePage gamePage = new GamePage();
+                        GamePage gamePage = new GamePage(game);
+                        //LoadBoard(gamePage);
+                        gamePage.LoadBoard();
+                        gamePage.InfoBox.Text = "Game Loaded";
                         this.NavigationService.Navigate(gamePage);
                     }
                     catch (IOException exception)
                     {
                         Console.WriteLine(exception.Message);
+                        Console.WriteLine("Failed to Load Game");
                     }
                 }
             }
-            //TODO: move this to the info board
-            Console.WriteLine("Game Loaded");
+
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        //private void LoadBoard(GamePage gamePage)
+        //{
+        //    //TODO: This is ugly and inefficient.  Need to fix to be quicker and cleaner
+        //    gamePage.TopXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 0];
+        //    gamePage.TopXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 1];
+        //    gamePage.TopXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 2];
+        //    gamePage.CenterXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 0];
+        //    gamePage.CenterXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 1];
+        //    gamePage.CenterXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 2];
+        //    gamePage.BottomXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 0];
+        //    gamePage.BottomXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 1];
+        //    gamePage.BottomXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 2];
+        //}
     }
 }

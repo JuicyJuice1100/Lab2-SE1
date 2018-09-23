@@ -17,8 +17,8 @@
             </Button>
         </TabPanel>
         <!--TODO: Bind information text here-->
-        <TextBox x:Name="InfoBox" Style="{StaticResource InfoBoard}">TODO: insert info here</TextBox>
-        <Grid Background="White" Height="600" Width="800">
+        <TextBox x:Name="InfoBox" Style="{StaticResource InfoBoard}"></TextBox>
+        <Grid x:Name="Board" Background="White" Height="600" Width="800">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Style="{StaticResource Column}"/>
                 <ColumnDefinition Style="{StaticResource Column}"/>

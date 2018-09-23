@@ -45,23 +45,23 @@ namespace Lab2.Pages
             {
                 player = new Player {
                     IsHuman = true,
-                    IsX = true
+                    Piece = "X"
                 };
                 computer = new Player {
                     IsHuman = false,
-                    IsX = false
+                    Piece = "O"
                 };
             } else //Player is O
             {
                 player = new Player
                 {
                     IsHuman = true,
-                    IsX = false
+                    Piece = "O"
                 };
                 computer = new Player
                 {
                     IsHuman = false,
-                    IsX = true
+                    Piece = "X"
                 };
             }
 
