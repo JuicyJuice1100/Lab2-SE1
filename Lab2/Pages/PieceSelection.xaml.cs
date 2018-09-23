@@ -17,9 +17,6 @@ using Lab2.Classes;
 
 namespace Lab2.Pages
 {
-    /// <summary>
-    /// Interaction logic for PieceSelection.xaml
-    /// </summary>
     public partial class PieceSelection : Page
     {
         public PieceSelection()
@@ -27,6 +24,11 @@ namespace Lab2.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Click function that will select what piece player will play
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Select(object sender, RoutedEventArgs e)
         {
             Player player;
@@ -70,7 +72,7 @@ namespace Lab2.Pages
                 Player1 = player,
                 Player2 = computer,
                 GameBoard = board,
-                IsPlayerTurn = random.Next(2) < 2
+                IsPlayerTurn = (bool)GoFirstCheckBox.IsChecked
             };
 
             GamePage gamePage = new GamePage(game);

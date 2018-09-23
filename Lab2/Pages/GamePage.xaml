@@ -9,15 +9,15 @@
       Title="Game">
     <StackPanel>
         <TabPanel Height="200" Width="800">
-            <Button Style="{StaticResource GameOptions}" Click="Save">
+            <Button x:Name="SaveButton" Style="{StaticResource GameOptions}" Click="Save">
                 Save
             </Button>
-            <Button Style="{StaticResource GameOptions}" Click="Exit">
+            <Button x:Name="ExitButton" Style="{StaticResource GameOptions}" Click="Exit">
                 Exit
             </Button>
         </TabPanel>
-        <!--TODO: Bind information text here-->
         <TextBox x:Name="InfoBox" Style="{StaticResource InfoBoard}"></TextBox>
+        
         <Grid x:Name="Board" Background="White" Height="600" Width="800">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Style="{StaticResource Column}"/>
@@ -80,5 +80,6 @@
                 Grid.Column="2"
                 Click="BoardClicked"/>
         </Grid>
+        
     </StackPanel>
 </Page>

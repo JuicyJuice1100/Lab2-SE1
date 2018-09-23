@@ -15,5 +15,6 @@
         <Button Name="O" Style="{StaticResource HomeButtons}" Click="Select" Tag="O">
             O
         </Button>
+        <CheckBox x:Name="GoFirstCheckBox" Style="{StaticResource GoFirstCheck}" IsChecked="True">Go First?</CheckBox>
     </StackPanel>
 </Page>

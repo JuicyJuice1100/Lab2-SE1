@@ -30,12 +30,22 @@ namespace Lab2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Will start a new game and go to piece selection page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGame(object sender, RoutedEventArgs e)
         {
             PieceSelection pieceSelection = new PieceSelection();
             this.NavigationService.Navigate(pieceSelection);
         }
 
+        /// <summary>
+        /// Will load a saved game.  User will have to load a valid json file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadGame(object sender, RoutedEventArgs e)
         {
             string fileName = null;
@@ -53,9 +63,7 @@ namespace Lab2
                     try
                     {
                         Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(fileName));
-                        //TODO: need to pass json data to game object and load to gamePage
                         GamePage gamePage = new GamePage(game);
-                        //LoadBoard(gamePage);
                         gamePage.LoadBoard();
                         gamePage.InfoBox.Text = "Game Loaded";
                         this.NavigationService.Navigate(gamePage);
@@ -70,23 +78,14 @@ namespace Lab2
 
         }
 
+        /// <summary>
+        /// Closes the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Exit(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
-
-        //private void LoadBoard(GamePage gamePage)
-        //{
-        //    //TODO: This is ugly and inefficient.  Need to fix to be quicker and cleaner
-        //    gamePage.TopXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 0];
-        //    gamePage.TopXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 1];
-        //    gamePage.TopXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[0, 2];
-        //    gamePage.CenterXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 0];
-        //    gamePage.CenterXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 1];
-        //    gamePage.CenterXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[1, 2];
-        //    gamePage.BottomXLeft.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 0];
-        //    gamePage.BottomXMiddle.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 1];
-        //    gamePage.BottomXRight.Content = gamePage.CurrentGame.GameBoard.PlayArea[2, 2];
-        //}
     }
 }

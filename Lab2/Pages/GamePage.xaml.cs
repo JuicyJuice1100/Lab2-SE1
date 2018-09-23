@@ -34,7 +34,6 @@ namespace Lab2
         public GamePage(Game game)
         {
             InitializeComponent();
-            //TODO: Create new game object and set defaults
 
             CurrentGame = game;
             MovesTaken = 0;
@@ -43,7 +42,10 @@ namespace Lab2
                 InfoBox.Text = "Player Turn";
             } else
             {
-                RandomMove();
+                do
+                {
+                    SavePlayArea();
+                } while (!RandomMove());
             }
         }
 
@@ -108,14 +110,11 @@ namespace Lab2
                         do
                         {
                             SavePlayArea();
-                            InfoBox.Text = "Computer is Making a move";
                         } while (!RandomMove());
-
-                        LoadBoard();
-                        InfoBox.Text = "Player Turn";
-                        
                     } else
                     {
+                        SaveButton.IsEnabled = false;
+                        //TODO: Replace with win check function
                         InfoBox.Text = "Game Finished";
                     }
                     
@@ -128,9 +127,13 @@ namespace Lab2
             }
         }
 
+        /// <summary>
+        /// When Save button is clicked it will allow the user to save the current game as a json text file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Save(object sender, RoutedEventArgs e)
         {
-            //TODO: Export to a text file
             string fileName = null;
 
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -218,14 +221,29 @@ namespace Lab2
             BottomXRight.Content = CurrentGame.GameBoard.PlayArea[2, 2];
         }
 
+        /// <summary>
+        /// This will make a random move for the computer
+        /// </summary>
+        /// <returns></returns>
+        /// TODO: Should be moved to the Board.class but ran out of time to fix that logic.
         public bool RandomMove()
         {
             Random random = new Random();
             return InsertMove(random.Next(3), random.Next(3), CurrentGame.Player2.Piece);
         }
 
+
+        /// <summary>
+        /// This is logic grabbed from my lab1 that I did not change.  Really is only used for the computer to make a valid move.
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        /// TODO: Should be moved to the Board.class but ran out of time to fix that logic.
         public bool InsertMove(int row, int column, string move)
         {
+            InfoBox.Text = "Computer is Making a move";
             if ((row < 0 || row > 2) && (column < 0 || column > 2))
             {
                 return false;
@@ -237,9 +255,27 @@ namespace Lab2
             else
             {
                 CurrentGame.GameBoard.PlayArea[row, column] = move;
+                LoadBoard();
+                InfoBox.Text = "Player Turn";
                 MovesTaken++;
+                if(MovesTaken >= 9)
+                {
+                    SaveButton.IsEnabled = false;
+                    //TODO: Replace with win check function
+                    InfoBox.Text = "Game Finished";
+                }
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Function that will check if player1 or player2 got 3 in a row
+        /// </summary>
+        /// <returns></returns>
+        private bool WinCheck()
+        {
+            //TODO: Insert win logic here
+            return true;
         }
     }
 }
