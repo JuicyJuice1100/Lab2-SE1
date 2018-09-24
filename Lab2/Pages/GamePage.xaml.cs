@@ -29,14 +29,12 @@ namespace Lab2
     public partial class GamePage : Page
     {
         public Game CurrentGame { get; set; }
-        private int MovesTaken { get; set; } //number of moves taken already.  This will increment by 1 after every move is taken
 
         public GamePage(Game game)
         {
             InitializeComponent();
 
             CurrentGame = game;
-            MovesTaken = 0;
             if (game.IsPlayerTurn)
             {
                 InfoBox.Text = "Player Turn";
@@ -103,9 +101,9 @@ namespace Lab2
                             break;
                     }
 
-                    MovesTaken++;
+                    CurrentGame.MovesTaken++;
                     //Computer will randomly do a move until valid
-                    if(MovesTaken < 9)
+                    if(CurrentGame.MovesTaken < 9)
                     {
                         do
                         {
@@ -257,8 +255,8 @@ namespace Lab2
                 CurrentGame.GameBoard.PlayArea[row, column] = move;
                 LoadBoard();
                 InfoBox.Text = "Player Turn";
-                MovesTaken++;
-                if(MovesTaken >= 9)
+                CurrentGame.MovesTaken++;
+                if(CurrentGame.MovesTaken >= 9)
                 {
                     SaveButton.IsEnabled = false;
                     //TODO: Replace with win check function

@@ -12,5 +12,6 @@ namespace Lab2.Classes
         public Player Player2 { get; set; }
         public Board GameBoard { get; set; }
         public bool IsPlayerTurn { get; set; }
+        public int MovesTaken { get; set; }
     }
 }

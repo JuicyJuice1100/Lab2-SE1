@@ -72,7 +72,8 @@ namespace Lab2.Pages
                 Player1 = player,
                 Player2 = computer,
                 GameBoard = board,
-                IsPlayerTurn = (bool)GoFirstCheckBox.IsChecked
+                IsPlayerTurn = (bool)GoFirstCheckBox.IsChecked,
+                MovesTaken = 0
             };
 
             GamePage gamePage = new GamePage(game);
