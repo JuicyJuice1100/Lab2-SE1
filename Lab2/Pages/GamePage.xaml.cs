@@ -101,6 +101,14 @@ namespace Lab2
                             break;
                     }
 
+                    SavePlayArea();
+
+                    if (WinCheck(CurrentGame.Player1.Piece)){
+                        InfoBox.Text = "You Win";
+                        SaveButton.IsEnabled = false;
+                        return;
+                    }
+
                     CurrentGame.MovesTaken++;
                     //Computer will randomly do a move until valid
                     if(CurrentGame.MovesTaken < 9)
@@ -109,13 +117,14 @@ namespace Lab2
                         {
                             SavePlayArea();
                         } while (!RandomMove());
-                    } else
-                    {
-                        SaveButton.IsEnabled = false;
-                        //TODO: Replace with win check function
-                        InfoBox.Text = "Game Finished";
                     }
-                    
+
+                    if (WinCheck(CurrentGame.Player2.Piece))
+                    {
+                        InfoBox.Text = "You Lose";
+                        SaveButton.IsEnabled = false;
+                        return;
+                    }
 
                 }
             } catch (Exception exception)
@@ -270,10 +279,54 @@ namespace Lab2
         /// Function that will check if player1 or player2 got 3 in a row
         /// </summary>
         /// <returns></returns>
-        private bool WinCheck()
+        private bool WinCheck(string piece)
         {
-            //TODO: Insert win logic here
-            return true;
+            //TODO: This can be written better for better efficiency.  Just didn't have time to implement.
+            bool isWin = false;
+            for(int i = 0; i < 3; i++) //TODO: Make this more dynamic.  Should avoid hardcoding values.
+            {
+                string[] row = new string[3];
+                for (int j = 0; j < 3; j++)
+                {
+                    row[j] = CurrentGame.GameBoard.PlayArea[i, j];
+                    if(row[j] == null) { break; } //If there is nothing in the array then we should stop checking that array
+                }
+                isWin = row.All(s => string.Equals(piece, s));  //looks at the first item and compares the rest of the array
+                if (isWin) { return isWin; }
+            }
+
+            //TODO: This can be written better for better efficiency.  Just didn't have time to implement.
+            for (int i = 0; i < 3; i++) //TODO: Make this more dynamic.  Should avoid hardcoding values.
+            {
+                string[] column = new string[3];
+                for (int j = 0; j < 3; j++)
+                {
+                    column[j] = CurrentGame.GameBoard.PlayArea[j, i];
+                    if (column[j] == null) { break; } //If there is nothing in the array then we should stop checking that array
+                }
+                isWin = column.All(s => string.Equals(piece, s));  //looks at the first item and compares the rest of the array
+                if (isWin) { return isWin; }
+            }
+
+            //TODO: This can be written better for better efficiency.  Just didn't have time to implement.
+            for (int i = 0; i < 3; i++) //TODO: make this more dynamic
+            {
+                string[] diagonalRight = new string[3];
+                string[] diagonalLeft = new string[3];
+
+                diagonalRight[i] = CurrentGame.GameBoard.PlayArea[i, i];
+                diagonalLeft[i] = CurrentGame.GameBoard.PlayArea[i, 2 - i];
+
+                if (diagonalRight[i] == null && diagonalLeft[i] == null) { break; } //If there is nothing in the array then we should stop checking that array
+
+
+                isWin = diagonalRight.All(s => string.Equals(piece, s));  //looks at the first item and compares the rest of the array
+                isWin = diagonalLeft.All(s => string.Equals(piece, s));  //looks at the first item and compares the rest of the array
+
+                if (isWin) { return isWin; }
+            }
+
+            return isWin;
         }
     }
 }
