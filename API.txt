@@ -1,0 +1,102 @@
+API for Tic-Tac-Toe
+
+Initial page:
+- Program starts with the Home.xaml page
+Known Issues:
+-When loading the file it does not disable the squares that are already marked.
+-Project is not tested with the forward and back buttons at all.  Just don't press those buttons.
+
+Documented XML.  If anything is unclear please read the XML documentation of each method.
+
+Classes:
+Board:
+	PlayArea = a 3x3 string 2d array.
+Game:
+	Player1 = Player Class, human player
+	Player2 = Player Class, computer player
+		Currently is only a computer player.  future will be able to play with 2 human players
+	Board = Board Class
+	IsPlayerTurn = a bool that dictates if it is Player1's turn
+	MovesTaken = an int that keeps track of the number of moves
+Player:
+	IsHuman = a bool that dictates if player is human
+	Piece = a string of what the player is playing as
+		Expected to be either "X" or "O"
+
+Pages:
+Home Page
+PieceSelection Page
+Game Page
+
+Home Page:
+	Simple page with 3 selection buttons
+	NewGame(object sender, RoutedEventArgs e)
+		-This will bring the user to the piece selection page
+	LoadGame(object sender, RoutedEventArgs e)
+		-Displays a LoadFileDialog GUI
+		-Loads an already saved game of Tic-Tac-Toe if selected otherwise does nothing
+		-The File must be a valid Tic-Tac-Toe
+			-Must contain a Game Class
+	Exit(object sender, RoutedEventArgs e)
+		-exits the program
+
+PieceSelection:
+	Simple page with 2 selection buttons and a checkbox
+	Select(object sender, RoutedEventArgs e)
+		-Checks what piece the player wants to play as
+		-Creates a new Board, 2 Players, and a Game
+			-Board is initially a 3x3 2d array with null in all indexes
+			-Player1 is Human with IsHuman = true and the Piece as what the User selected
+			-Player2 is Computer player with IsHuman = false and the Piece as the opposite of what the user selected
+			-Game will be created using the objects shown with an initial value of 0 with turns
+			-Game.IsPlayerTurn is dependent on if GoFirst checkbox is checked
+		-After creating the game the data will be sent to the the GamePage.xaml.cs and the GamePage.xaml will be shown.
+
+GamePage:
+	Page with an exit button, save button, infobox that shows basic information, and a 3x3 grid of the tic-tac-toe board
+	GamePage(Game game)
+		-Constructor that requires a game object
+		-if IsPlayerTurn will update infobox
+		-if IsPlayerTurn false will start with a randomMove done by the computer
+
+	BoardClicked(object sender, RoutedEventArgs e)
+		-Checks to see what part of the board was clicked, updates the board by inputting the piece on the clicked button and disables the button
+		-After each valid click will check if Player has won
+			-If player wins will disable the save button and display "You Win"
+		-Increases MovesTaken by 1
+		-Then does a random move as Player2, computer
+		-Checks to see if player2 has won
+			-If computer wins will disable the save button and display "You Lose"
+
+	Save(object sender, RoutedEventArgs e)
+		-Displays a SaveFileDialog GUI
+		-Saves Game as a valid Game file, json text file
+		-If saved successsfuly will change display to show Game Saved
+
+	Exit(object sender, RoutedEventArgs e)
+		-Exits program without saving
+
+	SavePlayArea()
+		-Method that Saves data to the GameBoard.PlayArea by taking data from the GUI and updating the gameBoard.PlayArea object
+
+	SetButtonAttributes(Button button)
+		-Private method for SavePlayArea()
+		-Disables the button and returns a string of the button content
+
+	LoadBoard()
+		-Sets the Board GUI to what the GameBoard.PlayArea has
+	
+	RandomMove()
+		-Makes a random move for player 2 by calling the InsertMove Method with random data
+
+	InserMove(int row, int column, string move)
+		-Checks to see if the currently move is valid
+			-If not valid then return false
+			-If valid will update the board with the inserted move
+				-Updates the moveTaken counter
+				-Loads the Board with the LoadBoard()
+			-If Movestaken is 9 or more then the game is over
+		-Only is used for computer player
+
+	WinCheck(string piece)
+		-checks to see if current player has won
