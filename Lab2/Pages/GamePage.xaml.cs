@@ -48,7 +48,7 @@ namespace Lab2
         }
 
         /// <summary>
-        /// Function when a button on the board is clicked
+        /// Function when a button on the board is clicked and mark the square that is clicked and disable it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
