@@ -48,34 +48,8 @@ namespace Lab2
         /// <param name="e"></param>
         private void LoadGame(object sender, RoutedEventArgs e)
         {
-            string fileName = null;
-
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    fileName = openFileDialog.FileName;
-                    try
-                    {
-                        Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(fileName));
-                        GamePage gamePage = new GamePage(game);
-                        gamePage.LoadBoard();
-                        gamePage.InfoBox.Text = "Game Loaded";
-                        this.NavigationService.Navigate(gamePage);
-                    }
-                    catch (IOException exception)
-                    {
-                        Console.WriteLine(exception.Message);
-                        Console.WriteLine("Failed to Load Game");
-                    }
-                }
-            }
-
+            Config conn = new Config();
+            conn.DBConnect();
         }
 
         /// <summary>
