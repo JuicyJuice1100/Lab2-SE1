@@ -49,7 +49,7 @@ namespace Lab2
         private void LoadGame(object sender, RoutedEventArgs e)
         {
             Config conn = new Config();
-            conn.DBConnect();
+            conn.DBTest();
         }
 
         /// <summary>
