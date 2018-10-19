@@ -14,13 +14,10 @@ namespace Lab2
 
         public Config()
         {
-            conn = new MySqlConnection
+            conn = new MySqlConnection("server=127.0.0.1; user=espirj96; password=x370796; database=espirj96; port=3306");
             //{
-            //    ConnectionString = "Server=127.0.0.1; user=espirj96; password=x370796; database=espirj96; port=3306"
+            //    ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["TicTacToe"].ConnectionString
             //};
-            {
-                ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["TicTacToe"].ConnectionString
-            };
         }
 
         public void DBConnect()

@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Lab2.Classes;
 using Lab2.Pages;
 using System.IO;
+using MySql.Data.MySqlClient;
 
 namespace Lab2
 {
@@ -48,8 +49,8 @@ namespace Lab2
         /// <param name="e"></param>
         private void LoadGame(object sender, RoutedEventArgs e)
         {
-            Config conn = new Config();
-            conn.DBTest();
+            MySqlConnection conn = new MySqlConnection("server=uws02.acs.uwosh.edu; user=espirj96; password=x370796; database=espirj96; port=3306");
+            conn.Open();
         }
 
         /// <summary>
